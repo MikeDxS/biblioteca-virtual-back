@@ -3,5 +3,6 @@
 ### Ejecutar en modo desarrollo 
 npm run dev
 
-### Contruir para desplegar
+### Para desplegar
 npm run build
+npm start
