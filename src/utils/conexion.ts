@@ -1,4 +1,7 @@
+/* eslint-disable max-len */
 import { Pool, Client } from 'pg';
+import fs from 'fs';
+import path from 'path';
 
 export class Conexion {
     private client: Client | undefined;
@@ -28,6 +31,11 @@ export class Conexion {
           database: 'biblioteca',
           password: process.env.PG_PASS,
           port: 5432,
+          // ssl: {
+          //   ca: fs.readFileSync(path.join(__dirname, './certificados/server-ca.pem')).toString(),
+          //   key: fs.readFileSync(path.join(__dirname, './certificados/client-key.pem')).toString(),
+          //   cert: fs.readFileSync(path.join(__dirname, './certificados/client-cert.pem')).toString(),
+          // },
         });
         return this.client;
       }

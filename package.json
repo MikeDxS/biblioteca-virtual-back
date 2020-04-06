@@ -9,6 +9,9 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc -p ."
   },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "author": "MikeDxS",
   "license": "ISC",
   "dependencies": {

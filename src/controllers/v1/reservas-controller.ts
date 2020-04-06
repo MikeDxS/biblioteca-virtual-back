@@ -9,11 +9,10 @@ const createReserva = async (req: Request, res: Response): Promise<void> => {
       await pool.connect();
       conexion.setIsConnected(true);
     }
-    const { isbn, fechaReserva, fechaDevolucion } = req.body;
+    const { isbn } = req.body;
     const { userId } = req.sessionData;
-    const formato = 'DD/MM/YYYY';
-    const consulta = 'INSERT INTO reservas(k_nickname, k_isbn, d_fecha_reserva, d_fecha_devolucion) VALUES ($1, $2, to_date($3, $4), to_date($5, $4))';
-    await pool.query(consulta, [userId, isbn, fechaReserva, formato, fechaDevolucion]);
+    const consulta = 'INSERT INTO reservas(k_nickname, k_isbn, d_fecha_reserva, d_fecha_devolucion) VALUES ($1, $2, current_date, current_date+30)';
+    await pool.query(consulta, [userId, isbn]);
     res.json({ message: 'Reserva creada exitosamente' });
   } catch (error) {
     res.status(500).json({ status: 'ERROR', message: error });
@@ -49,7 +48,7 @@ const getReservasByPersona = async (req: Request, res: Response): Promise<void> 
     const consulta = 'SELECT * FROM reservas WHERE k_nickname = $1';
     const data = await pool.query(consulta, [userId]);
     const result = data.rows;
-    res.json(result);
+    res.json({ status: 'OK', message: result });
   } catch (error) {
     res.status(500).json({ status: 'ERROR', message: error });
   }
